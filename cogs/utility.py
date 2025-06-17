@@ -339,7 +339,7 @@ class Utility(commands.Cog):
         embed.add_field(name="Hosting Method", value="`NUROHOST`")
         embed.add_field(name="Hosted by NuroHost",
             value=f"Join NuroHost"
-            "Want this bot too? join: https://discord.gg/zGwC5cEB3T.",
+            " Want this bot too? join: https://discord.gg/zGwC5cEB3T.",
             inline=False,
         )
 
