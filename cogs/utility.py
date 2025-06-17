@@ -336,7 +336,12 @@ class Utility(commands.Cog):
         embed.add_field(name="Latency", value=f"{self.bot.latency * 1000:.2f} ms")
         embed.add_field(name="Version", value=f"`{self.bot.version}`")
         embed.add_field(name="Authors", value="`kyb3r`, `Taki`, `fourjr`")
-        embed.add_field(name="Hosting Method", value=self.bot.hosting_method.name)
+        embed.add_field(name="Hosting Method", value="`NUROHOST`")
+        embed.add_field(name="Hosted by NuroHost",
+            value=f"Join NuroHost"
+            "Want this bot too? join: https://discord.gg/zGwC5cEB3T.",
+            inline=False,
+        )
 
         changelog = await Changelog.from_url(self.bot)
         latest = changelog.latest_version
@@ -348,27 +353,6 @@ class Utility(commands.Cog):
             footer = f"A newer version is available v{latest.version}."
         else:
             footer = "You are up to date with the latest version."
-
-        embed.add_field(
-            name="Want Modmail in Your Server?",
-            value="Follow the installation guide on [GitHub](https://github.com/modmail-dev/modmail/) "
-            "and join our [Discord server](https://discord.gg/cnUpwrnpYb)!",
-            inline=False,
-        )
-
-        embed.add_field(
-            name="Support the Developers",
-            value="This bot is completely free for everyone. We rely on kind individuals "
-            "like you to support us on [`Patreon`](https://patreon.com/kyber) (perks included) "
-            "to keep this bot free forever!",
-            inline=False,
-        )
-
-        embed.add_field(
-            name="Project Sponsors",
-            value=f"Checkout the people who supported Modmail with command `{self.bot.prefix}sponsors`!",
-            inline=False,
-        )
 
         embed.set_footer(text=footer)
         await ctx.send(embed=embed)
@@ -499,7 +483,6 @@ class Utility(commands.Cog):
             - `listening`
             - `watching`
             - `competing`
-            - `custom`
 
         When activity type is set to `listening`,
         it must be followed by a "to": "listening to..."
@@ -510,9 +493,6 @@ class Utility(commands.Cog):
         When activity type is set to `streaming`, you can set
         the linked twitch page:
         - `{prefix}config set twitch_url https://www.twitch.tv/somechannel/`
-
-        When activity type is set to `custom`, you can set
-        any custom text as the activity message.
 
         To remove the current activity status:
         - `{prefix}activity clear`
@@ -613,9 +593,7 @@ class Utility(commands.Cog):
         elif activity_type == ActivityType.streaming:
             url = self.bot.config["twitch_url"]
 
-        if activity_type == ActivityType.custom:
-            activity = discord.CustomActivity(name=activity_message)
-        elif activity_type is not None:
+        if activity_type is not None:
             activity = discord.Activity(type=activity_type, name=activity_message, url=url)
         else:
             activity = None
