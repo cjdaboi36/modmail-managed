@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 import secrets
 import sys
 from json import JSONDecodeError
@@ -12,7 +14,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.errors import ConfigurationError
 
 from core.models import InvalidConfigError, getLogger
-
+load_dotenv()
 logger = getLogger(__name__)
 botname = os.getenv("BOT_NAME")
 
