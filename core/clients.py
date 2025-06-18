@@ -14,7 +14,7 @@ from pymongo.errors import ConfigurationError
 from core.models import InvalidConfigError, getLogger
 
 logger = getLogger(__name__)
-
+botname = os.getenv("BOT_NAME")
 
 class GitHub:
     """
