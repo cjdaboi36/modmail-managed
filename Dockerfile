@@ -11,7 +11,7 @@ RUN apt-get update && \
 
 FROM base as builder
 
-COPY Pipfile Pipfile.lock ./
+COPY Pipfile ./
 
 RUN python -m venv /opt/modmail/.venv && \
     /opt/modmail/.venv/bin/pip install --upgrade pip && \
