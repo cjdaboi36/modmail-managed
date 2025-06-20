@@ -34,4 +34,5 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PATH=/opt/modmail/.venv/bin:$PATH \
     USING_DOCKER=yes
+RUN npm install -g pm2
 CMD ["pm2-runtime", "modmail.sh"]
