@@ -1721,7 +1721,6 @@ class ModmailBot(commands.Bot):
             return
 
         if self.hosting_method == HostingMethod.DOCKER:
-            logger.warning("Autoupdates disabled as using Docker.")
             self.autoupdate.cancel()
             return
 
