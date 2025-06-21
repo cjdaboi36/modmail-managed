@@ -1,39 +1,38 @@
-
 FROM python:3.11-slim-bookworm as base
 
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    curl gnupg libcairo2 && \
+    curl gnupg libcairo2 build-essential && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install --no-install-recommends -y nodejs && \
     npm install -g pm2 && \
+    pip install --upgrade pip && \
+    pip install pipenv && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+RUN useradd --shell /usr/sbin/nologin --create-home -d /opt/modmail modmail
 
-    useradd --shell /usr/sbin/nologin --create-home -d /opt/modmail modmail
-
-FROM base as builder
-
-COPY requirements.txt .
-
-RUN python -m venv /opt/modmail/.venv && \
-    /opt/modmail/.venv/bin/pip install --upgrade pip wheel && \
-    /opt/modmail/.venv/bin/pip install -r requirements.txt
-
-FROM base
-
-
-COPY --from=builder --chown=modmail:modmail /opt/modmail/.venv /opt/modmail/.venv
 
 WORKDIR /opt/modmail
-COPY --chown=modmail:modmail . .
+
+
+COPY Pipfile ./
+COPY Pipfile.lock ./
+
+
+RUN pipenv install --deploy --ignore-pipfile
+
+COPY . .
+
+
+RUN chown -R modmail:modmail /opt/modmail
 
 USER modmail:modmail
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    PATH=/opt/modmail/.venv/bin:$PATH \
-    USING_DOCKER=yes
+    USING_DOCKER=yes \
+    PATH="/opt/modmail/.local/share/virtualenvs/modmail-*/bin:$PATH"
 
-CMD ["pm2-runtime", "modmail.config.js"]
+CMD ["pm2-runtime", "mod]()
