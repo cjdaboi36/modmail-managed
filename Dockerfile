@@ -11,16 +11,15 @@ RUN apt-get update && \
     pip install pipenv && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN useradd --shell /usr/sbin/nologin --create-home -d /opt/modmail modmail
 
+RUN useradd --shell /usr/sbin/nologin --create-home -d /opt/modmail modmail
 
 WORKDIR /opt/modmail
 
 
-COPY Pipfile ./
-COPY Pipfile.lock ./
+ENV PIPENV_VENV_IN_PROJECT=1
 
-
+COPY Pipfile Pipfile.lock ./
 RUN pipenv install --deploy --ignore-pipfile
 
 COPY . .
@@ -30,11 +29,10 @@ RUN chown -R modmail:modmail /opt/modmail
 
 USER modmail:modmail
 
+
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     USING_DOCKER=yes \
-    PATH="/opt/modmail/.local/share/virtualenvs/modmail-*/bin:$PATH"
+    PATH="/opt/modmail/.venv/bin:$PATH"
 
-CMD ["pipenv", "install"]
 CMD ["pm2-runtime", "modmail.config.js"]
-
