@@ -1,3 +1,3 @@
 #!/bin/sh
 
-python3 bot.py
+pipenv run python3 bot.py
