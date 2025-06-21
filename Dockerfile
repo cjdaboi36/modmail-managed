@@ -36,4 +36,4 @@ ENV PYTHONUNBUFFERED=1 \
     PATH=/opt/modmail/.venv/bin:$PATH \
     USING_DOCKER=yes
 
-CMD ["pm2-runtime", "modmail.config.j"]
+CMD ["pm2-runtime", "modmail.config.js"]
