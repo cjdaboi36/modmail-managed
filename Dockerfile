@@ -35,5 +35,6 @@ ENV PYTHONUNBUFFERED=1 \
     USING_DOCKER=yes \
     PATH="/opt/modmail/.local/share/virtualenvs/modmail-*/bin:$PATH"
 
+CMD ["pipenv", "install"]
 CMD ["pm2-runtime", "modmail.config.js"]
 
