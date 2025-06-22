@@ -336,10 +336,10 @@ class Utility(commands.Cog):
         embed.add_field(name="Latency", value=f"{self.bot.latency * 1000:.2f} ms")
         embed.add_field(name="Version", value=f"`{self.bot.version}`")
         embed.add_field(name="Authors", value="`kyb3r`, `Taki`, `fourjr`")
-        embed.add_field(name="Hosting Method", value="`NUROHOST`")
-        embed.add_field(name="Hosted by NuroHost",
-            value=f"Join NuroHost"
-            " Want this bot too? join: https://discord.gg/zGwC5cEB3T.",
+        embed.add_field(name="Hosting Method", value="`CJSCOMMISSIONS`")
+        embed.add_field(name="Hosted by Cj's Commissions",
+            value=f""
+            "Want this bot too? join: https://discord.gg/muTuAQQsZp.",
             inline=False,
         )
 
